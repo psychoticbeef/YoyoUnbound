@@ -1,0 +1,8 @@
+#!/bin/sh
+
+wget -O yoyo_ad_servers "http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&mimetype=plaintext" && \
+cat yoyo_ad_servers | grep 127 | awk '{print $2}' | while read line ; 
+do 
+echo "local-zone: \"$line\" redirect" ;
+echo "local-data: \"$line A 192.168.1.254\"" ;
+done > ad_servers_yoyo
